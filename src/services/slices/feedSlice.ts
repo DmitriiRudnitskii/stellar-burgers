@@ -1,9 +1,16 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getFeedsApi, getOrdersApi, orderBurgerApi } from '../../utils/burger-api';
+import {
+  getFeedsApi,
+  getOrdersApi,
+  orderBurgerApi
+} from '../../utils/burger-api';
 import { TOrder } from '../../utils/types';
 
 export const getFeeds = createAsyncThunk('feed/getAll', getFeedsApi);
-export const getProfileOrders = createAsyncThunk('feed/getProfileOrders', getOrdersApi);
+export const getProfileOrders = createAsyncThunk(
+  'feed/getProfileOrders',
+  getOrdersApi
+);
 export const createOrder = createAsyncThunk('feed/createOrder', orderBurgerApi);
 
 type TFeedState = {
@@ -38,7 +45,9 @@ export const feedSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Общая лента
-      .addCase(getFeeds.pending, (state) => { state.loading = true; })
+      .addCase(getFeeds.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(getFeeds.fulfilled, (state, action) => {
         state.orders = action.payload.orders;
         state.total = action.payload.total;
@@ -64,12 +73,21 @@ export const feedSlice = createSlice({
   selectors: {
     selectOrders: (state) => state.orders,
     selectProfileOrders: (state) => state.profileOrders,
-    selectFeedTotal: (state) => ({ total: state.total, totalToday: state.totalToday }),
+    selectFeedTotal: (state) => ({
+      total: state.total,
+      totalToday: state.totalToday
+    }),
     selectOrderRequest: (state) => state.orderRequest,
     selectOrderModalData: (state) => state.orderModalData
   }
 });
 
 export const { closeOrderModal } = feedSlice.actions;
-export const { selectOrders, selectProfileOrders, selectFeedTotal, selectOrderRequest, selectOrderModalData } = feedSlice.selectors;
+export const {
+  selectOrders,
+  selectProfileOrders,
+  selectFeedTotal,
+  selectOrderRequest,
+  selectOrderModalData
+} = feedSlice.selectors;
 export default feedSlice.reducer;

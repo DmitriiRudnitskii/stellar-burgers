@@ -1,6 +1,9 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { useSelector } from '../../services/store';
-import { selectIsAuthChecked, selectUser } from '../../services/slices/userSlice';
+import {
+  selectIsAuthChecked,
+  selectUser
+} from '../../services/slices/userSlice';
 import { Preloader } from '../ui/preloader';
 
 type ProtectedRouteProps = {
@@ -8,7 +11,10 @@ type ProtectedRouteProps = {
   component: React.JSX.Element;
 };
 
-export const ProtectedRoute = ({ onlyUnAuth = false, component }: ProtectedRouteProps) => {
+export const ProtectedRoute = ({
+  onlyUnAuth = false,
+  component
+}: ProtectedRouteProps) => {
   const isAuthChecked = useSelector(selectIsAuthChecked);
   const user = useSelector(selectUser);
   const location = useLocation();

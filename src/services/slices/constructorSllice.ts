@@ -24,18 +24,23 @@ export const constructorSlice = createSlice({
           state.ingredients.push(action.payload);
         }
       },
-      prepare: (ingredient: TIngredient) => {
-        return { payload: { ...ingredient, id: uuidv4() } };
-      }
+      prepare: (ingredient: TIngredient) => ({
+        payload: { ...ingredient, id: uuidv4() }
+      })
     },
     removeIngredient: (state, action: PayloadAction<string>) => {
-      state.ingredients = state.ingredients.filter(item => item.id !== action.payload);
+      state.ingredients = state.ingredients.filter(
+        (item) => item.id !== action.payload
+      );
     },
-    moveIngredient: (state, action: PayloadAction<{ from: number; to: number }>) => {
-        const { from, to } = action.payload;
-        const ingredients = [...state.ingredients];
-        ingredients.splice(to, 0, ingredients.splice(from, 1)[0]);
-        state.ingredients = ingredients;
+    moveIngredient: (
+      state,
+      action: PayloadAction<{ from: number; to: number }>
+    ) => {
+      const { from, to } = action.payload;
+      const ingredients = [...state.ingredients];
+      ingredients.splice(to, 0, ingredients.splice(from, 1)[0]);
+      state.ingredients = ingredients;
     },
     clearConstructor: (state) => {
       state.bun = null;
@@ -47,6 +52,11 @@ export const constructorSlice = createSlice({
   }
 });
 
-export const { addIngredient, removeIngredient, clearConstructor, moveIngredient } = constructorSlice.actions;
+export const {
+  addIngredient,
+  removeIngredient,
+  clearConstructor,
+  moveIngredient
+} = constructorSlice.actions;
 export const { selectConstructorItems } = constructorSlice.selectors;
 export default constructorSlice.reducer;

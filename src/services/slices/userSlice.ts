@@ -1,6 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import {
-  TLoginData, TRegisterData, getUserApi, loginUserApi, logoutApi, registerUserApi, updateUserApi
+  TLoginData,
+  TRegisterData,
+  getUserApi,
+  loginUserApi,
+  logoutApi,
+  registerUserApi,
+  updateUserApi
 } from '../../utils/burger-api';
 import { TUser } from '../../utils/types';
 import { setCookie, deleteCookie } from '../../utils/cookie';
@@ -11,18 +17,18 @@ export const login = createAsyncThunk('user/login', loginUserApi);
 export const getUser = createAsyncThunk('user/getUser', getUserApi);
 export const updateUser = createAsyncThunk('user/updateUser', updateUserApi);
 export const logout = createAsyncThunk('user/logout', async () => {
-    await logoutApi();
-    localStorage.removeItem('refreshToken');
-    deleteCookie('accessToken');
+  await logoutApi();
+  localStorage.removeItem('refreshToken');
+  deleteCookie('accessToken');
 });
 
 export const checkUserAuth = createAsyncThunk(
-    'user/checkUserAuth',
-    async (_, { dispatch }) => {
-        if (localStorage.getItem('refreshToken')) {
-            await dispatch(getUser());
-        }
+  'user/checkUserAuth',
+  async (_, { dispatch }) => {
+    if (localStorage.getItem('refreshToken')) {
+      await dispatch(getUser());
     }
+  }
 );
 
 type TUserState = {
@@ -41,7 +47,9 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    authChecked: (state) => { state.isAuthChecked = true; }
+    authChecked: (state) => {
+      state.isAuthChecked = true;
+    }
   },
   extraReducers: (builder) => {
     builder

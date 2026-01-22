@@ -2,15 +2,23 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useSelector, useDispatch } from '../../services/store';
-import { selectConstructorItems, clearConstructor } from '../../services/slices/constructorSllice';
-import { createOrder, selectOrderRequest, selectOrderModalData, closeOrderModal } from '../../services/slices/feedSlice';
+import {
+  selectConstructorItems,
+  clearConstructor
+} from '../../services/slices/constructorSllice';
+import {
+  createOrder,
+  selectOrderRequest,
+  selectOrderModalData,
+  closeOrderModal
+} from '../../services/slices/feedSlice';
 import { selectUser } from '../../services/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const constructorItems = useSelector(selectConstructorItems);
   const orderRequest = useSelector(selectOrderRequest);
   const orderModalData = useSelector(selectOrderModalData);
@@ -21,14 +29,15 @@ export const BurgerConstructor: FC = () => {
       navigate('/login');
       return;
     }
-    if (!constructorItems.bun || constructorItems.ingredients.length === 0) return;
+    if (!constructorItems.bun || constructorItems.ingredients.length === 0)
+      return;
 
     const ingredientIds = [
       constructorItems.bun._id,
-      ...constructorItems.ingredients.map(i => i._id),
+      ...constructorItems.ingredients.map((i) => i._id),
       constructorItems.bun._id
     ];
-    
+
     dispatch(createOrder(ingredientIds));
   };
 
@@ -41,7 +50,10 @@ export const BurgerConstructor: FC = () => {
   const price = useMemo(
     () =>
       (constructorItems.bun ? constructorItems.bun.price * 2 : 0) +
-      constructorItems.ingredients.reduce((s: number, v: TConstructorIngredient) => s + v.price, 0),
+      constructorItems.ingredients.reduce(
+        (s: number, v: TConstructorIngredient) => s + v.price,
+        0
+      ),
     [constructorItems]
   );
 
