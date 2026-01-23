@@ -1,6 +1,7 @@
 import { setCookie, getCookie } from './cookie';
-import { TIngredient, TOrder, TOrdersData, TUser } from './types';
+import { TIngredient, TOrder, TUser } from './types';
 
+// ВАЖНО: Указываем полный адрес с https://
 const URL = 'https://norma.nomoreparties.space/api';
 
 const checkResponse = <T>(res: Response): Promise<T> =>
@@ -65,10 +66,6 @@ type TFeedsResponse = TServerResponse<{
   orders: TOrder[];
   total: number;
   totalToday: number;
-}>;
-
-type TOrdersResponse = TServerResponse<{
-  data: TOrder[];
 }>;
 
 export const getIngredientsApi = () =>
