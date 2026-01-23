@@ -9,40 +9,62 @@ import {
   ProfileIcon
 } from '@zlden/react-developer-burger-ui-components';
 
-export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => {
-  // Функция для определения классов активной ссылки
-  const getLinkClass = ({ isActive }: { isActive: boolean }) =>
-    isActive ? `${styles.link} ${styles.link_active}` : styles.link;
-
-  return (
-    <header className={styles.header}>
-      <nav className={`${styles.menu} p-4`}>
-        <div className={styles.menu_part_left}>
-          <NavLink to='/' className={getLinkClass}>
-            <BurgerIcon type={'primary'} />
-            <p className='text text_type_main-default ml-2 mr-10'>
-              Конструктор
-            </p>
-          </NavLink>
-          <NavLink to='/feed' className={getLinkClass}>
-            <ListIcon type={'primary'} />
-            <p className='text text_type_main-default ml-2'>Лента заказов</p>
-          </NavLink>
-        </div>
-        <div className={styles.logo}>
-          <NavLink to='/'>
-            <Logo className='' />
-          </NavLink>
-        </div>
-        <div className={styles.link_position_last}>
-          <NavLink to='/profile' className={getLinkClass}>
-            <ProfileIcon type={'primary'} />
-            <p className='text text_type_main-default ml-2'>
-              {userName || 'Личный кабинет'}
-            </p>
-          </NavLink>
-        </div>
-      </nav>
-    </header>
-  );
-};
+export const AppHeaderUI: FC<TAppHeaderUIProps> = ({ userName }) => (
+  <header className={styles.header}>
+    <nav className={`${styles.menu} p-4`}>
+      <div className={styles.menu_part_left}>
+        <NavLink
+          to='/'
+          end
+          className={({ isActive }) =>
+            isActive ? `${styles.link} ${styles.link_active}` : styles.link
+          }
+        >
+          {({ isActive }) => (
+            <>
+              <BurgerIcon type={isActive ? 'primary' : 'secondary'} />
+              <p className='text text_type_main-default ml-2 mr-10'>
+                Конструктор
+              </p>
+            </>
+          )}
+        </NavLink>
+        <NavLink
+          to='/feed'
+          className={({ isActive }) =>
+            isActive ? `${styles.link} ${styles.link_active}` : styles.link
+          }
+        >
+          {({ isActive }) => (
+            <>
+              <ListIcon type={isActive ? 'primary' : 'secondary'} />
+              <p className='text text_type_main-default ml-2'>Лента заказов</p>
+            </>
+          )}
+        </NavLink>
+      </div>
+      <div className={styles.logo}>
+        <NavLink to='/'>
+          <Logo className='' />
+        </NavLink>
+      </div>
+      <div className={styles.link_position_last}>
+        <NavLink
+          to='/profile'
+          className={({ isActive }) =>
+            isActive ? `${styles.link} ${styles.link_active}` : styles.link
+          }
+        >
+          {({ isActive }) => (
+            <>
+              <ProfileIcon type={isActive ? 'primary' : 'secondary'} />
+              <p className='text text_type_main-default ml-2'>
+                {userName || 'Личный кабинет'}
+              </p>
+            </>
+          )}
+        </NavLink>
+      </div>
+    </nav>
+  </header>
+);

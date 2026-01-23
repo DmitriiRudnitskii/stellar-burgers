@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from '../../services/store';
 import { checkUserAuth } from '../../services/slices/userSlice';
-import { getIngredients } from '../../services/slices/ingridientsSlice';
+import { getIngredients } from '../../services/slices/ingredientsSlice';
 
 import {
   ConstructorPage,

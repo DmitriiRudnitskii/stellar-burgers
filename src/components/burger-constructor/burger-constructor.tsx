@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from '../../services/store';
 import {
   selectConstructorItems,
   clearConstructor
-} from '../../services/slices/constructorSllice';
+} from '../../services/slices/constructorSlice';
 import {
   createOrder,
   selectOrderRequest,

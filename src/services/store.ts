@@ -5,8 +5,8 @@ import {
   useSelector as selectorHook
 } from 'react-redux';
 
-import ingredientsReducer from './slices/ingridientsSlice';
-import constructorReducer from './slices/constructorSllice';
+import ingredientsReducer from './slices/ingredientsSlice';
+import constructorReducer from './slices/constructorSlice';
 import userReducer from './slices/userSlice';
 import feedReducer from './slices/feedSlice';
 

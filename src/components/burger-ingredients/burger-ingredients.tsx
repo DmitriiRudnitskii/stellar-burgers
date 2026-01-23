@@ -4,7 +4,7 @@ import { useInView } from 'react-intersection-observer';
 import { TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 import { useSelector } from '../../services/store';
-import { selectIngredients } from '../../services/slices/ingridientsSlice';
+import { selectIngredients } from '../../services/slices/ingredientsSlice';
 
 export const BurgerIngredients: FC = () => {
   const ingredients = useSelector(selectIngredients);
@@ -13,10 +13,12 @@ export const BurgerIngredients: FC = () => {
     () => ingredients.filter((item) => item.type === 'bun'),
     [ingredients]
   );
+
   const mains = useMemo(
     () => ingredients.filter((item) => item.type === 'main'),
     [ingredients]
   );
+
   const sauces = useMemo(
     () => ingredients.filter((item) => item.type === 'sauce'),
     [ingredients]
@@ -32,9 +34,13 @@ export const BurgerIngredients: FC = () => {
   const [saucesRef, inViewSauces] = useInView({ threshold: 0 });
 
   useEffect(() => {
-    if (inViewBuns) setCurrentTab('bun');
-    else if (inViewSauces) setCurrentTab('sauce');
-    else if (inViewFilling) setCurrentTab('main');
+    if (inViewBuns) {
+      setCurrentTab('bun');
+    } else if (inViewSauces) {
+      setCurrentTab('sauce');
+    } else if (inViewFilling) {
+      setCurrentTab('main');
+    }
   }, [inViewBuns, inViewFilling, inViewSauces]);
 
   const onTabClick = (tab: string) => {
