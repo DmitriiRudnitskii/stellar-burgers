@@ -6,6 +6,7 @@ import { FeedUIProps } from './type';
 import { OrdersList, FeedInfo } from '@components';
 import { RefreshButton } from '@zlden/react-developer-burger-ui-components';
 
+
 export const FeedUI: FC<FeedUIProps> = memo(({ orders, handleGetFeeds }) => (
   <main className={styles.containerMain}>
     <div className={`${styles.titleBox} mt-10 mb-5`}>

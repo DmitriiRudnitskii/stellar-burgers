@@ -65,8 +65,6 @@ export const router = createBrowserRouter([
 
 
 const App = () => {
-    const dispatch = useDispatch()
-    dispatch(getIngredients());
   return(
   <div className={styles.app}>
     <AppHeader />

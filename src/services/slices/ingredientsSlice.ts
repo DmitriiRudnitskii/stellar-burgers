@@ -6,7 +6,7 @@ type TIngredientsState = {
   buns: Array<TIngredient>,
   mains: Array<TIngredient>,
   sauces: Array<TIngredient>
-  loading: boolean,
+  isIngredientsLoading: boolean,
   error: string | null
 }
 export const getIngredients = createAsyncThunk(
@@ -20,7 +20,7 @@ const initialState: TIngredientsState = {
   buns:[],
   mains: [],
   sauces: [],
-  loading: false,
+  isIngredientsLoading: false,
   error: null
 } 
 
@@ -40,15 +40,15 @@ export const ingredientSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(getIngredients.pending, (state) => {
-                state.loading = true;
+                state.isIngredientsLoading = true;
                 state.error = null;
             })
             .addCase(getIngredients.rejected, (state, action) => {
-                state.loading = false;
+                state.isIngredientsLoading = false;
                 state.error = action.error.message as string | null;
             })
             .addCase(getIngredients.fulfilled, (state, action) => {
-                state.loading = false;
+                state.isIngredientsLoading = false;
                 state.buns = action.payload.filter(ingredient => ingredient.type === 'bun')
                 state.mains = action.payload.filter(ingredient => ingredient.type === 'main')
                 state.sauces = action.payload.filter(ingredient => ingredient.type === 'sauce')
