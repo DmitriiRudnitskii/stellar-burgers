@@ -8,8 +8,7 @@ import { getIngredientsSelector } from '../../services/slices/ingredientsSlice';
 
 export const BurgerIngredients: FC = () => {
   /** TODO: взять переменные из стора */
-  const {buns,mains,sauces} = useSelector(getIngredientsSelector);
-
+  const { buns, mains, sauces } = useSelector(getIngredientsSelector);
 
   const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
   const titleBunRef = useRef<HTMLHeadingElement>(null);
@@ -47,7 +46,6 @@ export const BurgerIngredients: FC = () => {
     if (tab === 'sauce')
       titleSaucesRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
-
 
   return (
     <BurgerIngredientsUI

@@ -1,0 +1,22 @@
+import { useNavigate } from 'react-router-dom';
+import { Modal } from '../modal/modal';
+import * as React from 'react';
+
+type TModalRouteProps = {
+    children:React.ReactNode
+}
+
+
+export const ModalRoute: React.FC<TModalRouteProps> = ({ children }) => {
+  const navigate = useNavigate();
+
+  const handleClose = () => {
+    navigate(-1);
+  };
+
+  return (
+    <Modal title="" onClose={handleClose}>
+      {children}
+    </Modal>
+  );
+};
