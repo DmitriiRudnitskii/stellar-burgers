@@ -6,12 +6,11 @@ import { getFeedSelector, getOrders } from '../../services/slices/feedSlice';
 
 export const ProfileOrders: FC = () => {
   /** TODO: взять переменную из стора */
-  const {orders} = useSelector(getFeedSelector);
-  const dispatch = useDispatch()
+  const { orders } = useSelector(getFeedSelector);
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getOrders())
-  }, [])
-
+    dispatch(getOrders());
+  }, []);
 
   return <ProfileOrdersUI orders={orders} />;
 };

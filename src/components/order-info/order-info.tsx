@@ -4,27 +4,31 @@ import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
 import { useSelector, useDispatch } from '../../services/store';
-import { getOrderSelector, getOrderByNumber } from '../../services/slices/orderSlice';
-import { getIngredientsSelector, getIngredients } from '../../services/slices/ingredientsSlice';
-
+import {
+  getOrderSelector,
+  getOrderByNumber
+} from '../../services/slices/orderSlice';
+import {
+  getIngredientsSelector,
+  getIngredients
+} from '../../services/slices/ingredientsSlice';
 
 export const OrderInfo: FC = () => {
   /** TODO: взять переменные orderData и ingredients из стора */
-  const {orderData} = useSelector(getOrderSelector)
-  const {buns, mains, sauces} = useSelector(getIngredientsSelector)
+  const { orderData } = useSelector(getOrderSelector);
+  const { buns, mains, sauces } = useSelector(getIngredientsSelector);
   const ingredients: TIngredient[] = buns.concat(mains).concat(sauces);
-  const {number} = useParams()
-  const dispatch = useDispatch()
+  const { number } = useParams();
+  const dispatch = useDispatch();
   useEffect(() => {
-    if(number && !Number.isNaN(+number))
-    dispatch(getOrderByNumber(+number))
+    if (number && !Number.isNaN(+number)) dispatch(getOrderByNumber(+number));
     if (!ingredients.length) {
-        dispatch(getIngredients()); 
+      dispatch(getIngredients());
     }
-  }, [])
+  }, []);
   /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
-    console.log(orderData)
+    console.log(orderData);
     if (!orderData || !ingredients.length) return null;
 
     const date = new Date(orderData.createdAt);

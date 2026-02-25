@@ -10,7 +10,9 @@ type TFeedState = {
   error: string | null;
 };
 export const getFeed = createAsyncThunk('/feed', async () => getFeedsApi());
-export const getOrders = createAsyncThunk('/profile/orders', async () => getOrdersApi());
+export const getOrders = createAsyncThunk('/profile/orders', async () =>
+  getOrdersApi()
+);
 
 const initialState: TFeedState = {
   orders: [],
@@ -47,7 +49,7 @@ export const feedSlice = createSlice({
         state.total = action.payload.total;
         state.totalToday = action.payload.totalToday;
       })
-       .addCase(getOrders.pending, (state) => {
+      .addCase(getOrders.pending, (state) => {
         state.loading = true;
         state.error = null;
       })

@@ -11,10 +11,9 @@ type TConstructorState = {
   orderModalData: TOrder | null;
 };
 export const orderBurger = createAsyncThunk(
-  'order/', 
-  async (data: string[]) => {
-  return await orderBurgerApi(data) 
-  })
+  'order/',
+  async (data: string[]) => await orderBurgerApi(data)
+);
 
 const initialState: TConstructorState = {
   constructorItems: {
@@ -93,13 +92,10 @@ export const constructorSlice = createSlice({
           action.payload
         );
     },
-    clearConstructor:(
-      state,
-      action:PayloadAction
-    ) => {
-      state.constructorItems = {bun: null, ingredients:[]}
-      state.orderRequest = false
-      state.orderModalData = null
+    clearConstructor: (state, action: PayloadAction) => {
+      state.constructorItems = { bun: null, ingredients: [] };
+      state.orderRequest = false;
+      state.orderModalData = null;
     }
   },
 
@@ -108,17 +104,17 @@ export const constructorSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-          .addCase(orderBurger.pending, (state) => {
-            state.orderRequest = true;
-          })
-          .addCase(orderBurger.rejected, (state, action) => {
-            state.orderRequest = false;
-          })
-          .addCase(orderBurger.fulfilled, (state,action) =>{
-            state.orderRequest = false;
-            state.orderModalData = action.payload.order
-          })
-        }
+      .addCase(orderBurger.pending, (state) => {
+        state.orderRequest = true;
+      })
+      .addCase(orderBurger.rejected, (state, action) => {
+        state.orderRequest = false;
+      })
+      .addCase(orderBurger.fulfilled, (state, action) => {
+        state.orderRequest = false;
+        state.orderModalData = action.payload.order;
+      });
+  }
 });
 
 export const { getConstructorSelector } = constructorSlice.selectors;

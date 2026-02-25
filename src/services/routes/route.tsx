@@ -1,4 +1,4 @@
-import { createBrowserRouter} from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom';
 import {
   ConstructorPage,
   Feed,
@@ -10,72 +10,98 @@ import {
   ProfileOrders,
   NotFound404
 } from '../../pages';
-import {ModalRoute, OrderInfo, IngredientDetails } from '../../components';
-import App from '../../components/app/app'
-
+import { ModalRoute, OrderInfo, IngredientDetails } from '../../components';
+import App from '../../components/app/app';
+import { ProtectedRoute } from './protectedRoute';
 
 export const router = createBrowserRouter([
- { path: '/',
+  {
+    path: '/',
     element: <App />,
-  children: [
-    { path: '/', element: <ConstructorPage /> },
-  {
-    path: '/feed',
-    element: <Feed />
-  },
-  {
-    path: '/login',
-    element: <Login />
-  },
-  {
-    path: '/register',
-    element: <Register />
-  },
-  {
-    path: '/forgot-password',
-    element: <ForgotPassword />
-  },
-  {
-    path: '/reset-password',
-    element: <ResetPassword />
-  },
-  {
-    path: '/profile',
-    element: <Profile />
-  },
-  {
-    path: '/profile/orders',
-    element: <ProfileOrders />
-  },
-  {
-    path: '*',
-    element: <NotFound404 />
-  },
-  {
-    path: '/profile/orders/:number',
-    element: (
-      <ModalRoute>
-        <OrderInfo />
-      </ModalRoute>
-    )
-  },
-  {
-    path: '/ingredients/:id',
-    element: (
-      <ModalRoute>
-        <IngredientDetails />
-      </ModalRoute>
-    )
-  },
-  {
-    path: '/feed/:number',
-    element: (
-      <ModalRoute>
-        <OrderInfo />
-      </ModalRoute>
-    )
+    children: [
+      { path: '/', element: <ConstructorPage /> },
+      {
+        path: '/feed',
+        element: <Feed />
+      },
+      {
+        path: '/login',
+        element: (
+          <ProtectedRoute onlyUnAuth>
+            <Login />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: '/register',
+        element: (
+          <ProtectedRoute onlyUnAuth>
+            <Register />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: '/forgot-password',
+        element: (
+          <ProtectedRoute onlyUnAuth>
+            <ForgotPassword />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: '/reset-password',
+        element: (
+          <ProtectedRoute onlyUnAuth>
+            <ResetPassword />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: '/profile',
+        element: (
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: '/profile/orders',
+        element: (
+          <ProtectedRoute>
+            <ProfileOrders />
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: '*',
+        element: <NotFound404 />
+      },
+      {
+        path: '/profile/orders/:number',
+        element: (
+          <ProtectedRoute>
+            <ModalRoute>
+              <OrderInfo />
+            </ModalRoute>
+          </ProtectedRoute>
+        )
+      },
+      {
+        path: '/ingredients/:id',
+        element: (
+          <ModalRoute>
+            <IngredientDetails />
+          </ModalRoute>
+        )
+      },
+      {
+        path: '/feed/:number',
+        element: (
+          <ModalRoute>
+            <OrderInfo />
+          </ModalRoute>
+        )
+      }
+    ]
   }
-
-  ]
-  
-}]);
+]);
