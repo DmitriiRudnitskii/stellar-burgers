@@ -5,6 +5,7 @@ import { BurgerIngredientUI } from '@ui';
 import { TBurgerIngredientProps } from './type';
 import { useDispatch } from '../../services/store';
 import { addIngredient, addBun } from '../../services/slices/constructorSlice';
+import { TConstructorIngredient } from '@utils-types';
 
 export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
   ({ ingredient, count }) => {
@@ -14,7 +15,11 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
       if (ingredient.type === 'bun') {
         dispatch(addBun(ingredient));
       } else {
-        dispatch(addIngredient(ingredient));
+        const constructoringredient: TConstructorIngredient = {
+          ...ingredient,
+          id: Math.random().toLocaleString()
+        };
+        dispatch(addIngredient(constructoringredient));
       }
     };
 

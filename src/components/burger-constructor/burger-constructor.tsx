@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from '../../services/store';
 import { getConstructorSelector } from '../../services/slices/constructorSlice';
 import {
   orderBurger,
-  clearConstructor
+  closeModal
 } from '../../services/slices/constructorSlice';
 import { getUserSelector } from '../../services/slices/userSlice';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -34,7 +34,7 @@ export const BurgerConstructor: FC = () => {
     }
   };
   const closeOrderModal = () => {
-    dispatch(clearConstructor());
+    dispatch(closeModal());
   };
 
   const price = useMemo(

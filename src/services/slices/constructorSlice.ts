@@ -31,10 +31,9 @@ export const constructorSlice = createSlice({
     addBun: (state, action: PayloadAction<TIngredient>) => {
       state.constructorItems.bun = action.payload as TConstructorIngredient;
     },
-    addIngredient: (state, action: PayloadAction<TIngredient>) => {
+    addIngredient: (state, action: PayloadAction<TConstructorIngredient>) => {
       state.constructorItems.ingredients.push({
-        ...action.payload,
-        id: Math.random().toLocaleString()
+        ...action.payload
       });
     },
     removeIngredient: (
@@ -92,8 +91,7 @@ export const constructorSlice = createSlice({
           action.payload
         );
     },
-    clearConstructor: (state, action: PayloadAction) => {
-      state.constructorItems = { bun: null, ingredients: [] };
+    closeModal: (state, action: PayloadAction) => {
       state.orderRequest = false;
       state.orderModalData = null;
     }
@@ -113,6 +111,7 @@ export const constructorSlice = createSlice({
       .addCase(orderBurger.fulfilled, (state, action) => {
         state.orderRequest = false;
         state.orderModalData = action.payload.order;
+        state.constructorItems = { bun: null, ingredients: [] };
       });
   }
 });
@@ -124,6 +123,6 @@ export const {
   removeIngredient,
   moveUpIngredient,
   moveDownIngredient,
-  clearConstructor
+  closeModal
 } = constructorSlice.actions;
 export const reducer = constructorSlice.reducer;

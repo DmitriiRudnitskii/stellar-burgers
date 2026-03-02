@@ -7,6 +7,7 @@ import {
   getIngredients,
   getIngredientsSelector
 } from '../../services/slices/ingredientsSlice';
+import { Outlet } from 'react-router-dom';
 
 export const Feed: FC = () => {
   let { buns, mains, sauces } = useSelector(getIngredientsSelector);
@@ -27,11 +28,14 @@ export const Feed: FC = () => {
   }
 
   return (
-    <FeedUI
-      orders={orders}
-      handleGetFeeds={() => {
-        dispatch(getFeed());
-      }}
-    />
+    <>
+      <FeedUI
+        orders={orders}
+        handleGetFeeds={() => {
+          dispatch(getFeed());
+        }}
+      />
+      <Outlet />
+    </>
   );
 };

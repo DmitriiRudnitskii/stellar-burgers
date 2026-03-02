@@ -5,6 +5,7 @@ import { TTabMode } from '@utils-types';
 import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 import { useSelector } from '../../services/store';
 import { getIngredientsSelector } from '../../services/slices/ingredientsSlice';
+import { Outlet } from 'react-router-dom';
 
 export const BurgerIngredients: FC = () => {
   /** TODO: взять переменные из стора */
@@ -48,18 +49,21 @@ export const BurgerIngredients: FC = () => {
   };
 
   return (
-    <BurgerIngredientsUI
-      currentTab={currentTab}
-      buns={buns}
-      mains={mains}
-      sauces={sauces}
-      titleBunRef={titleBunRef}
-      titleMainRef={titleMainRef}
-      titleSaucesRef={titleSaucesRef}
-      bunsRef={bunsRef}
-      mainsRef={mainsRef}
-      saucesRef={saucesRef}
-      onTabClick={onTabClick}
-    />
+    <>
+      <BurgerIngredientsUI
+        currentTab={currentTab}
+        buns={buns}
+        mains={mains}
+        sauces={sauces}
+        titleBunRef={titleBunRef}
+        titleMainRef={titleMainRef}
+        titleSaucesRef={titleSaucesRef}
+        bunsRef={bunsRef}
+        mainsRef={mainsRef}
+        saucesRef={saucesRef}
+        onTabClick={onTabClick}
+      />
+      <Outlet />
+    </>
   );
 };

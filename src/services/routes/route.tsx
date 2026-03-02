@@ -19,10 +19,33 @@ export const router = createBrowserRouter([
     path: '/',
     element: <App />,
     children: [
-      { path: '/', element: <ConstructorPage /> },
+      {
+        path: '/',
+        element: <ConstructorPage />,
+        children: [
+          {
+            path: '/ingredients/:id',
+            element: (
+              <ModalRoute>
+                <IngredientDetails />
+              </ModalRoute>
+            )
+          }
+        ]
+      },
       {
         path: '/feed',
-        element: <Feed />
+        element: <Feed />,
+        children: [
+          {
+            path: '/feed/:number',
+            element: (
+              <ModalRoute>
+                <OrderInfo />
+              </ModalRoute>
+            )
+          }
+        ]
       },
       {
         path: '/login',
@@ -70,38 +93,25 @@ export const router = createBrowserRouter([
           <ProtectedRoute>
             <ProfileOrders />
           </ProtectedRoute>
-        )
+        ),
+        children: [
+          {
+            path: '/profile/orders/:number',
+            element: (
+              <ProtectedRoute>
+                <ModalRoute>
+                  <OrderInfo />
+                </ModalRoute>
+              </ProtectedRoute>
+            )
+          }
+        ]
       },
       {
         path: '*',
         element: <NotFound404 />
       },
-      {
-        path: '/profile/orders/:number',
-        element: (
-          <ProtectedRoute>
-            <ModalRoute>
-              <OrderInfo />
-            </ModalRoute>
-          </ProtectedRoute>
-        )
-      },
-      {
-        path: '/ingredients/:id',
-        element: (
-          <ModalRoute>
-            <IngredientDetails />
-          </ModalRoute>
-        )
-      },
-      {
-        path: '/feed/:number',
-        element: (
-          <ModalRoute>
-            <OrderInfo />
-          </ModalRoute>
-        )
-      }
+      {}
     ]
   }
 ]);
