@@ -43,7 +43,18 @@ const config:JestConfigWithTsJest = {
               // настройки для ts-jest
             },
           ],
-        }
+        },
+  moduleNameMapper: {
+    // Указываем Jest, где искать алиасы
+    '^@api$': '<rootDir>/src/utils/burger-api.ts',
+    '^@utils-types$': '<rootDir>/src/utils/types.ts',
+    '^@components$': '<rootDir>/src/components/index.ts',
+    '^@ui$': '<rootDir>/src/components/ui/index.ts',
+    
+    // Если у вас есть импорты вида @components/something
+    '^@components/(.*)$': '<rootDir>/src/components/$1',
+    '^@ui/(.*)$': '<rootDir>/src/components/ui/$1',
+  }
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [

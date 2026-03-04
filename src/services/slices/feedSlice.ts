@@ -27,7 +27,7 @@ export const feedSlice = createSlice({
   initialState,
   reducers: {
     addFeed: (state, action: PayloadAction<TFeedState>) => {
-      state = action.payload;
+      return action.payload;
     }
   },
   selectors: {

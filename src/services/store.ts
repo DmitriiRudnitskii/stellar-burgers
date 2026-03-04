@@ -12,7 +12,7 @@ import { userSlice } from './slices/userSlice';
 import { orderSlice } from './slices/orderSlice';
 import { combineSlices } from '@reduxjs/toolkit';
 
-const rootReducer = combineSlices(
+export const rootReducer = combineSlices(
   ingredientSlice,
   feedSlice,
   constructorSlice,
