@@ -1,4 +1,12 @@
-import { userSlice, authChecked, loginUser, registerUser, updateUser, getUser, logoutUser } from './userSlice';
+import {
+  userSlice,
+  authChecked,
+  loginUser,
+  registerUser,
+  updateUser,
+  getUser,
+  logoutUser
+} from './userSlice';
 
 describe('userSlice', () => {
   const reducer = userSlice.reducer;
@@ -27,8 +35,14 @@ describe('userSlice', () => {
     });
 
     it('должен авторизовать пользователя при fulfilled', () => {
-      const action = { type: loginUser.fulfilled.type, payload: { user: mockUser } };
-      const state = reducer({ ...initialState, loginUserRequest: true }, action);
+      const action = {
+        type: loginUser.fulfilled.type,
+        payload: { user: mockUser }
+      };
+      const state = reducer(
+        { ...initialState, loginUserRequest: true },
+        action
+      );
       expect(state.loginUserRequest).toBe(false);
       expect(state.isAuthenticated).toBe(true);
       expect(state.isAuthChecked).toBe(true);
@@ -36,8 +50,14 @@ describe('userSlice', () => {
     });
 
     it('должен сохранять ошибку при rejected', () => {
-      const action = { type: loginUser.rejected.type, error: { message: 'Login Error' } };
-      const state = reducer({ ...initialState, loginUserRequest: true }, action);
+      const action = {
+        type: loginUser.rejected.type,
+        error: { message: 'Login Error' }
+      };
+      const state = reducer(
+        { ...initialState, loginUserRequest: true },
+        action
+      );
       expect(state.loginUserRequest).toBe(false);
       expect(state.loginUserError).toBe('Login Error');
       expect(state.isAuthChecked).toBe(true);
@@ -46,12 +66,20 @@ describe('userSlice', () => {
 
   describe('Асинхронные экшены getUser и updateUser', () => {
     it('должны ставить loginUserRequest=true при pending', () => {
-      expect(reducer(initialState, { type: getUser.pending.type }).loginUserRequest).toBe(true);
-      expect(reducer(initialState, { type: updateUser.pending.type }).loginUserRequest).toBe(true);
+      expect(
+        reducer(initialState, { type: getUser.pending.type }).loginUserRequest
+      ).toBe(true);
+      expect(
+        reducer(initialState, { type: updateUser.pending.type })
+          .loginUserRequest
+      ).toBe(true);
     });
 
     it('getUser.fulfilled должен сохранять пользователя и статус авторизации', () => {
-      const action = { type: getUser.fulfilled.type, payload: { user: mockUser } };
+      const action = {
+        type: getUser.fulfilled.type,
+        payload: { user: mockUser }
+      };
       const state = reducer(initialState, action);
       expect(state.user).toEqual(mockUser);
       expect(state.isAuthenticated).toBe(true);
@@ -75,10 +103,14 @@ describe('userSlice', () => {
     });
 
     it('должен очищать данные пользователя при fulfilled', () => {
-      const authenticatedState = { ...initialState, isAuthenticated: true, user: mockUser };
+      const authenticatedState = {
+        ...initialState,
+        isAuthenticated: true,
+        user: mockUser
+      };
       const action = { type: logoutUser.fulfilled.type };
       const state = reducer(authenticatedState, action);
-      
+
       expect(state.loginUserRequest).toBe(false);
       expect(state.isAuthenticated).toBe(false);
       expect(state.user).toBeNull();

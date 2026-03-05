@@ -23,7 +23,13 @@ describe('feedSlice', () => {
   ];
 
   it('должен обрабатывать обычный экшен addFeed', () => {
-    const payload = { orders: mockOrders, total: 100, totalToday: 10, loading: false, error: null };
+    const payload = {
+      orders: mockOrders,
+      total: 100,
+      totalToday: 10,
+      loading: false,
+      error: null
+    };
     const state = reducer(initialState, addFeed(payload));
     expect(state).toEqual(payload);
   });
@@ -40,7 +46,7 @@ describe('feedSlice', () => {
       const payload = { orders: mockOrders, total: 100, totalToday: 10 };
       const action = { type: getFeed.fulfilled.type, payload };
       const state = reducer({ ...initialState, loading: true }, action);
-      
+
       expect(state.loading).toBe(false);
       expect(state.orders).toEqual(mockOrders);
       expect(state.total).toBe(100);
@@ -48,9 +54,12 @@ describe('feedSlice', () => {
     });
 
     it('должен сохранять ошибку и ставить loading=false при rejected', () => {
-      const action = { type: getFeed.rejected.type, error: { message: 'Fetch error' } };
+      const action = {
+        type: getFeed.rejected.type,
+        error: { message: 'Fetch error' }
+      };
       const state = reducer({ ...initialState, loading: true }, action);
-      
+
       expect(state.loading).toBe(false);
       expect(state.error).toBe('Fetch error');
     });
@@ -67,15 +76,18 @@ describe('feedSlice', () => {
     it('должен сохранять данные и ставить loading=false при fulfilled', () => {
       const action = { type: getOrders.fulfilled.type, payload: mockOrders };
       const state = reducer({ ...initialState, loading: true }, action);
-      
+
       expect(state.loading).toBe(false);
       expect(state.orders).toEqual(mockOrders);
     });
 
     it('должен сохранять ошибку и ставить loading=false при rejected', () => {
-      const action = { type: getOrders.rejected.type, error: { message: 'Order fetch error' } };
+      const action = {
+        type: getOrders.rejected.type,
+        error: { message: 'Order fetch error' }
+      };
       const state = reducer({ ...initialState, loading: true }, action);
-      
+
       expect(state.loading).toBe(false);
       expect(state.error).toBe('Order fetch error');
     });

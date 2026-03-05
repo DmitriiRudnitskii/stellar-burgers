@@ -36,17 +36,23 @@ describe('orderSlice', () => {
 
     it('должен сохранять данные и ставить isOrderLoading=false при fulfilled', () => {
       // Ваш код в слайсе берет первый заказ из массива orders: action.payload.orders[0]
-      const action = { type: getOrderByNumber.fulfilled.type, payload: { orders: [mockOrder] } };
+      const action = {
+        type: getOrderByNumber.fulfilled.type,
+        payload: { orders: [mockOrder] }
+      };
       const state = reducer({ ...initialState, isOrderLoading: true }, action);
-      
+
       expect(state.isOrderLoading).toBe(false);
       expect(state.orderData).toEqual(mockOrder);
     });
 
     it('должен сохранять ошибку и ставить isOrderLoading=false при rejected', () => {
-      const action = { type: getOrderByNumber.rejected.type, error: { message: 'Order not found' } };
+      const action = {
+        type: getOrderByNumber.rejected.type,
+        error: { message: 'Order not found' }
+      };
       const state = reducer({ ...initialState, isOrderLoading: true }, action);
-      
+
       expect(state.isOrderLoading).toBe(false);
       expect(state.error).toBe('Order not found');
     });
